@@ -1,4 +1,4 @@
-Testing deployment of simple stock price predictor for next 7 days (model code from https://testdriven.io/blog/fastapi-machine-learning/ ) to explore Streamlit app. 
+Testing deployment of simple stock price predictor for next 7 days (model and code built on from https://testdriven.io/blog/fastapi-machine-learning/ ) to explore Streamlit app. 
 
 Future additions planned:
 1- Build upon iris deployment to FastAPI after errors in original material with this streamlit app, which may look to Dash for this as well. 
