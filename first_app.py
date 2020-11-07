@@ -1,25 +1,18 @@
 # Testing sreamlit getting started guide
 
 import streamlit as st
-
 import pandas as pd
 import numpy as np
-
-#print("hello")
-
-st.title("Stock Prediction Application")
-
-st.write("Here is the first attempt at the first ever fintech ml model, ever!! This program wshould accept a stock ticker entry and return the predicted stock closing price for the next 7 days.")
-
-#st.write(pd.DataFrame({'Stock': ['MSFT', 'TSLA'], 'Price': [212.99, 1600.01]}))
-
-
 import datetime
 import plotly
 from fbprophet import Prophet
 import yfinance as yf
 import pandas as pd
+import plotly.graph_objects as go
 
+# Set the page title and description
+st.title("Stock Prediction Application")
+st.write("Here is the first attempt at the first ever fintech ml model, ever!! This program wshould accept a stock ticker entry and return the predicted stock closing price for the next 7 days.")
 
 
 TODAY = datetime.date.today()
@@ -33,6 +26,22 @@ train_end_date = TODAY.strftime('%Y-%m-%d')
 
 data = yf.download(ticker, train_start_date, train_end_date)
 
+
+# Plot of the downloaded stock price data 
+fig = go.Figure(data = [go.Candlestick(x = data.index,
+                                       open = data['Open'],
+                                       high = data['High'],
+                                       low = data['Low'],
+                                       close = data['Adj Close'])])
+
+fig.update_layout(title = f'{ticker} Open, Low, High and Adjusted Closing Prices from {train_start_date} to {train_end_date}',
+                  title_x = 0.5,
+                  yaxis_title = f'{ticker} Prices')
+fig.show()
+
+
+
+# Create proper traiing dataframe for fbprophet framework
 data_copy = (data.copy()
              .reset_index()
              .rename(columns = {'Date':'ds', 'Adj Close':'y'})
@@ -57,6 +66,24 @@ dates = (pd.date_range(start = predict_start_date.strftime('%m/%d/%Y'), end = pr
 )
 
 forecast = model.predict(dates)
+
+
+
+# Plot the predicted stock prices for the date range
+fig2 = go.Figure()
+
+fig2.add_trace(go.Scatter(x = forecast.ds,
+                         y = forecast.trend,
+                         mode = 'lines+markers'))
+
+fig2.update_layout(title = f'{ticker} Potential Price Range from {predict_start_date} to {predict_end_date}',
+                  title_x = 0.5,
+                  yaxis_title = f'{ticker} Predicted Price Range')
+
+fig2.show()
+
+
+
 
 prediction_list = forecast.tail(predict_range).to_dict('records')
 
