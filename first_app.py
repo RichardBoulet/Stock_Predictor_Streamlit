@@ -16,7 +16,9 @@ st.write("Here is the first attempt at the first ever fintech ml model, ever!! T
 
 
 TODAY = datetime.date.today()
-ticker = input('Enter ticker symbol:')
+
+# Streamlit option for text entry into model
+ticker = st.text_input('Enter ticker symbol:')
 
 
 # Train model
@@ -37,7 +39,9 @@ fig = go.Figure(data = [go.Candlestick(x = data.index,
 fig.update_layout(title = f'{ticker} Open, Low, High and Adjusted Closing Prices from {train_start_date} to {train_end_date}',
                   title_x = 0.5,
                   yaxis_title = f'{ticker} Prices')
-fig.show()
+
+# moving figure call to end of script
+# fig.show()
 
 
 
@@ -80,8 +84,8 @@ fig2.update_layout(title = f'{ticker} Potential Price Range from {predict_start_
                   title_x = 0.5,
                   yaxis_title = f'{ticker} Predicted Price Range')
 
-fig2.show()
-
+# Moving figure.show to bottom of script to run at end once predicted results are in
+#fig2.show()
 
 
 
@@ -94,5 +98,23 @@ output = {}
 for data in prediction_list:
     date = data['ds'].strftime('%m/%d/%Y')
     output[date] = data['trend']
-    
-output
+
+
+
+# Title and chart for Figure 1 Hstorical Prices
+st.write(f'{ticker} Open, Low, High and Adjusted Closing Prices Interactive Chart')
+st.plotly_chart(fig)
+
+
+
+# Add dataframe to streamlit app frontpage
+st.write(f'Predicted Closing Prices for {ticker}')
+st.write(pd.DataFrame.from_dict(output, orient = 'index', columns = ['Predicted Closing Price']))
+
+
+
+# Title and chart for Figure 2 Predicted Prices
+st.write(f'{ticker} Predicted Prices Interactive Chart')
+st.plotly_chart(fig2)
+
+
