@@ -13,12 +13,16 @@ import plotly.graph_objects as go
 # Set the page title and description
 st.title("Stock Prediction Application")
 st.write("Here is the first attempt at the first ever fintech ml model, ever!! This program wshould accept a stock ticker entry and return the predicted stock closing price for the next 7 days.")
+st.write('\n')
 
 
 TODAY = datetime.date.today()
 
 # Streamlit option for text entry into model
 ticker = st.text_input('Enter ticker symbol:')
+st.write('\n')
+
+
 
 
 # Train model
@@ -105,16 +109,14 @@ for data in prediction_list:
 st.write(f'{ticker} Open, Low, High and Adjusted Closing Prices Interactive Chart')
 st.plotly_chart(fig)
 
-
-
 # Add dataframe to streamlit app frontpage
 st.write(f'Predicted Closing Prices for {ticker}')
-st.write(pd.DataFrame.from_dict(output, orient = 'index', columns = ['Predicted Closing Price']))
-
+st.write(pd.DataFrame.from_dict(output, orient = 'index', columns = ['Predicted Closing Price']).T)
+st.write('\n')
 
 
 # Title and chart for Figure 2 Predicted Prices
 st.write(f'{ticker} Predicted Prices Interactive Chart')
 st.plotly_chart(fig2)
-
+st.write('\n')
 
