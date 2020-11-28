@@ -1,3 +1,5 @@
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/richardboulet/stock_predictor_streamlit/first_app.py)
+
 Testing deployment of simple stock price predictor for next 7 days (model and code built on from https://testdriven.io/blog/fastapi-machine-learning/ ) to explore Streamlit app. 
 
 Future additions planned:
