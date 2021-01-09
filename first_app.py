@@ -19,7 +19,7 @@ st.write('\n')
 TODAY = datetime.date.today()
 
 # Streamlit option for text entry into model
-ticker = st.text_input('Enter ticker symbol:')
+ticker = st.text_input('Enter ticker symbol:', 'MSFT')
 st.write('\n')
 
 
@@ -49,7 +49,7 @@ fig.update_layout(title = f'{ticker} Open, Low, High and Adjusted Closing Prices
 
 
 
-# Create proper traiing dataframe for fbprophet framework
+# Create proper training dataframe for fbprophet framework
 data_copy = (data.copy()
              .reset_index()
              .rename(columns = {'Date':'ds', 'Adj Close':'y'})
