@@ -19,7 +19,7 @@ st.write('\n')
 TODAY = datetime.date.today()
 
 # Streamlit option for text entry into model
-ticker = st.text_input('Enter ticker symbol:', 'MSFT')
+ticker = st.text_input('Enter your preferred ticker symbol below:', 'MSFT')
 st.write('\n')
 
 
